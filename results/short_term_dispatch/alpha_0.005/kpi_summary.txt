@@ -1,0 +1,51 @@
+=== MULTI-FLEX MILP DISPATCH SUMMARY (PuLP + GUROBI) ===
+Solve status: Optimal
+
+=== INPUT ===
+Curve CSV : C:\Users\HAN YUQI\Desktop\Project\E4C\Energy 工程 Part\short Time\outputs_allocate_curtailment\absorption_allocation_outputs\region_absorb_need_curve_30min.csv
+H2 Price CSV: C:\Users\HAN YUQI\Desktop\Project\E4C\Energy 工程 Part\short Time\prices_2024_30min_plus_h2.csv
+dt_h: 0.5
+tz  : Europe/Paris
+alpha: 0.005
+
+=== THERMAL ===
+p2h_cap_mw: 5.0
+p2h_eta: 0.98
+tes_cap_mwh_th: 200.0
+tes_discharge_cap_mw_th: -1.0
+tes_loss_frac_per_hour: 0.0
+penalty_unmet_heat_eur_per_mwh_th: 200.0
+
+=== ELECTROLYZER (ENGINEERING) ===
+el_cap_mw: 5.0
+el_min_load_frac: 0.2
+el_ramp_frac_per_step: 0.3
+el_min_up_steps: 1
+el_min_down_steps: 1
+
+=== SOLVE ===
+rolling_horizon_hours: 168.0
+overlap_hours        : 24.0
+time_limit_s         : 600
+mip_gap              : 0.01
+threads              : 6
+verify_full_absorption: False
+
+=== KPIs ===
+alpha: 0.005000
+E_region_total_MWh: 808,788.754020
+E_project_total_MWh: 4,043.943770
+E_absorbed_MWh: 4,043.943770
+E_unused_calc_MWh: 0.000000
+E_unused_model_MWh: 0.000000
+Absorption_rate_%: 100.000000
+H2_prod_kg: 74,573.387976
+H2_sale_kg: 74,573.387976
+H2_revenue_EUR: 3,030,540.580846
+PB_deficit_MWh: -0.000010
+PB_surplus_MWh: -0.000000
+Heat_demand_MWh_th: 0.000000
+Heat_served_MWh_th: 139.861284
+Unmet_heat_MWh_th: 0.000000
+EL_starts: 67.000000
+EL_stops: 67.000000

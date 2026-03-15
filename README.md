@@ -67,30 +67,6 @@ This means the project should be read not only as a modelling exercise, but also
 
 ---
 
-## Repository Structure
-
-```text
-Energy-4-Climate-Project/
-│
-├── data/
-│   ├── raw/
-│   ├── short_term_inputs/
-│   └── long_term_inputs/
-│
-├── methods/
-│   ├── curtailment_risk/
-│   ├── short_term_dispatch/
-│   └── long_term_optimization/
-│
-├── results/
-│   ├── curtailment_risk/
-│   ├── absorption_allocation/
-│   ├── short_term_dispatch/
-│   └── long_term_optimization/
-│
-└── README.md
-
-
 ## Mathematical Formulation of the Optimization Models
 
 This project includes two complementary optimization models:
@@ -673,3 +649,29 @@ The long-term annual MILP is used to answer:
 - Is the project pushed toward large-scale absorption or toward a minimum-loss design?
 
 In that sense, the short-term model is a **technology screening tool**, while the long-term model is a **project design and investment screening tool**.
+
+
+## Repository Structure
+
+```text
+Energy-4-Climate-Project/
+│
+├── data/
+│   ├── raw/
+│   ├── short_term_inputs/
+│   └── long_term_inputs/
+│
+├── methods/
+│   ├── curtailment_risk/
+│   ├── short_term_dispatch/
+│   └── long_term_optimization/
+│
+├── results/
+│   ├── curtailment_risk/
+│   ├── absorption_allocation/
+│   ├── short_term_dispatch/
+│   └── long_term_optimization/
+│
+└── README.md
+
+

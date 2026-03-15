@@ -1,0 +1,94 @@
+=== INPUT FILES ===
+France file  : C:\Users\HAN YUQI\Desktop\Project\E4C\Energy 工程 Part\弃电问题\data\eco2mix-France-cons-def.csv
+Region file  : C:\Users\HAN YUQI\Desktop\Project\E4C\Energy 工程 Part\弃电问题\data\eco2mix-regional-cons-def.csv
+
+=== DATA QUALITY CHECKS (DST / duplicates / gaps) ===
+[France] duplicates removed before aggregation: 24
+[France] observed time-step deltas (minutes): {30: 17564, 90: 1}
+[Region] duplicates removed: 2
+[Region] observed time-step deltas (minutes): {30: 17564, 90: 1}
+Note: eco2mix is a 30-min series. DST can create duplicates and missing slots.
+
+=== NATIONAL THRESHOLDS (computed on aggregated France series) ===
+Wind P75 (MW)                           : 7,595.0
+Solar P75 (MW) [08:00–17:59 & solar>0]  : 9,110.0
+PV2 daily solar energy P80 (MWh/day)     : 112,189.5
+W2 daily mean wind P80 (MW)             : 8,473.5
+
+=== WINDOW COVERAGE (defined by FRANCE) ===
+PV1 hours (h/year)   : 635.0
+W1 hours  (h/year)   : 1,118.0
+PV2 event-days       : 32
+W2 event-days        : 63
+Union hours (h/year) : 2,728.0
+
+=== EVENT STATISTICS (continuous blocks) ===
+PV1 blocks: n=147, avg=4.32h, median=5.00h, max=6.00h
+W1  blocks: n=130, avg=8.60h, median=8.00h, max=56.00h
+PV2 spells: n=11, avg=2.91d, median=3.00d, max=4.00d
+W2  spells: n=19, avg=3.32d, median=2.00d, max=7.00d
+
+=== ENERGY ACCOUNTING (wind+solar) ===
+[France] wind (TWh)           : 46.812
+[France] solar (TWh)          : 24.504
+[France] wind+solar (TWh)     : 71.315
+[France] in union (TWh)       : 35.967
+
+[Hauts-de-France] wind (TWh)       : 12.512
+[Hauts-de-France] solar (TWh)      : 0.626
+[Hauts-de-France] wind+solar (TWh) : 13.137
+[Hauts-de-France] in union (TWh)   : 7.272
+
+Shares (region / France):
+sB = full-year share                   : 18.42%
+sC = union-hours (risk windows) share  : 20.22%
+Interpretation: if you allocate a national curtailment number by energy share,
+               sC is often more realistic than sB because it focuses on risky windows.
+
+=== REGION EXPORT PROXY (saturation / curtailment risk signal) ===
+export_mw = -Ech. physiques (MW)
+Threshold export P99 (MW)                    : 4,406.3
+Max export (MW)                                        : 5,315.0
+Near-max threshold (MW) = max - 100       : 5,215.0
+Candidate points found                                 : 176
+Of which in union_hours                                : 176
+
+Top 10 export points (most extreme):
+  2024-11-19T03:30:00+01:00 | export=5315 MW | wind=5246 MW | solar=0 MW | conso=4982 MW | in_union=True
+  2024-12-07T04:30:00+01:00 | export=5307 MW | wind=5299 MW | solar=0 MW | conso=5041 MW | in_union=True
+  2024-11-19T05:00:00+01:00 | export=5271 MW | wind=5237 MW | solar=0 MW | conso=5003 MW | in_union=True
+  2024-12-08T05:00:00+01:00 | export=5270 MW | wind=5244 MW | solar=0 MW | conso=4931 MW | in_union=True
+  2024-12-08T04:30:00+01:00 | export=5248 MW | wind=5212 MW | solar=0 MW | conso=4928 MW | in_union=True
+  2024-12-19T02:00:00+01:00 | export=5241 MW | wind=5481 MW | solar=0 MW | conso=5151 MW | in_union=True
+  2024-11-19T04:00:00+01:00 | export=5240 MW | wind=5272 MW | solar=0 MW | conso=5075 MW | in_union=True
+  2024-12-08T06:00:00+01:00 | export=5215 MW | wind=5236 MW | solar=0 MW | conso=4976 MW | in_union=True
+  2024-01-02T05:00:00+01:00 | export=5206 MW | wind=5402 MW | solar=0 MW | conso=4505 MW | in_union=True
+  2024-12-08T05:30:00+01:00 | export=5201 MW | wind=5231 MW | solar=0 MW | conso=4977 MW | in_union=True
+
+=== FINAL EXPLANATION (what we are doing end-to-end) ===
+1) We load eco2mix-France and eco2mix-regional (Hauts-de-France) at 30-min resolution.
+   The France file is NOT a national total: it contains one row per region per timestamp.
+   We therefore (i) drop exact duplicate rows (DST), then (ii) sum all regions by timestamp
+   to obtain the true national time-series.
+
+2) Using the national time-series, we define *high-risk windows* where curtailment is more likely:
+   - PV1: strong solar during spring/summer mid-day
+   - W1 : strong wind during nights/weekends (typically low demand)
+   - PV2: multi-day sunny spells (>=2 consecutive high-solar days)
+   - W2 : multi-day windy spells (>=2 consecutive high-wind days)
+   Then we merge them into a targeted union_hours set (timestamps).
+
+3) We compute wind+solar energy (TWh) in:
+   - the full year, and
+   - the targeted union_hours.
+   This gives two shares:
+   - sB: Hauts-de-France share of national wind+solar over the whole year
+   - sC: Hauts-de-France share of national wind+solar inside the risky windows
+   If you want to allocate a national curtailment number (e.g., 4 TWh in 2025) to the region,
+   sC is usually a better allocator because it focuses exactly on the time steps where the
+   system is under the most stress.
+
+4) Finally, for the region we compute export_mw = -Ech. physiques (MW).
+   Very high export indicates the region is pushing power outward; if export approaches a corridor
+   limit, curtailment becomes more likely. We output the timestamps of extreme export (P99 or near-max)
+   and mark whether they are inside union_hours.

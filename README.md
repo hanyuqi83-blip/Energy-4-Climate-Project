@@ -106,11 +106,11 @@ For readers approaching the project for the first time, the recommended order is
 
 Read this README.md for the project background and overall logic.
 
-Open data/ to understand the input structure.
+Open `data/` to understand the input structure.
 
-Open methods/ to see how the problem is translated into analysis and modelling workflows.
+Open `methods/`to see how the problem is translated into analysis and modelling workflows.
 
-Open results/ to examine the outputs of each project stage.
+Open `results/` to examine the outputs of each project stage.
 
 ## Repository Structure
 

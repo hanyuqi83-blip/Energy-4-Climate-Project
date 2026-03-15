@@ -89,6 +89,8 @@ Energy-4-Climate-Project/
 │   └── long_term_optimization/
 │
 └── README.md
+
+
 ## Mathematical Formulation of the Optimization Models
 
 This project includes two complementary optimization models:

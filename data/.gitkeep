@@ -1,0 +1,49 @@
+# Data
+
+This folder contains all input datasets used in the project, including raw electricity data, short-term optimization inputs, and long-term techno-economic inputs.
+
+## Structure
+
+### `raw/`
+This subfolder stores the original electricity datasets used to construct the curtailment-risk proxy and the regional absorb-need curves.
+
+Typical files include:
+- `eco2mix-France-cons-def.csv`  
+  National electricity dataset used to identify high-risk renewable surplus periods in France.
+- `eco2mix-regional-cons-def.csv`  
+  Regional electricity dataset used to analyze Hauts-de-France and map the national curtailment-risk signal to the regional level.
+
+### `short_term_inputs/`
+This subfolder stores the datasets used in the short-term dispatch model.
+
+Typical files include:
+- `prices_2024_30min_plus_h2.csv`  
+  30-minute electricity and hydrogen-related price inputs for the short-term MILP model.
+- processed absorb-need time series derived from the curtailment allocation stage, such as:
+  - `region_absorb_need_curve_30min.csv`
+  - `national_absorb_need_curve_30min.csv`
+
+These files are used to simulate how batteries, power-to-heat, and electrolysis absorb renewable surplus under different project scales.
+
+### `long_term_inputs/`
+This subfolder stores the datasets used in the long-term optimization model for port-based hydrogen infrastructure planning.
+
+Typical files include:
+- `prices_2024_30min_elec_plus_h2_fixed2024_margin1.0.csv`  
+  Electricity and hydrogen price assumptions for the annual optimization.
+- `FR_greenH2_cost_from_hourly_power_price.csv`  
+  Derived French green hydrogen cost data.
+- `Yearly_data.csv`  
+  Annual input data for long-term optimization.
+- `Material_price_350bar.csv`
+- `Material_price_700bar.csv`
+- `Material_consumption_350bar.csv`
+- `Material_consumption_700bar.csv`  
+
+These files are used to estimate annual operating economics and storage-related investment costs.
+
+## Notes
+
+- Raw data are kept separate from processed model inputs.
+- Short-term and long-term inputs are stored in different subfolders to make the modeling workflow easier to follow.
+- Output files and optimization results should not be placed here. They belong in the `results/` folder.

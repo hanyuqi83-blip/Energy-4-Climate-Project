@@ -1,0 +1,34 @@
+=== INPUT FILES ===
+France file  : C:\Users\HAN YUQI\Desktop\Project\E4C\Energy 工程 Part\弃电问题\data\eco2mix-France-cons-def.csv
+Region file  : C:\Users\HAN YUQI\Desktop\Project\E4C\Energy 工程 Part\弃电问题\data\eco2mix-regional-cons-def.csv
+
+=== DATA QUALITY CHECKS (DST / duplicates / gaps) ===
+[France] duplicates removed before aggregation: 24
+[France] observed time-step deltas (minutes): {30: 17564, 90: 1}
+[Region] duplicates removed: 2
+[Region] observed time-step deltas (minutes): {30: 17564, 90: 1}
+
+=== NATIONAL THRESHOLDS ===
+Wind P75 (MW)                           : 7,595.0
+Solar P75 (MW) [08:00–17:59 & solar>0]  : 9,110.0
+PV2 daily solar energy P80 (MWh/day)     : 112,189.5
+W2 daily mean wind P80 (MW)             : 8,473.5
+
+=== WINDOW COVERAGE ===
+PV1 hours (h/year)   : 635.0
+W1 hours  (h/year)   : 1,118.0
+PV2 event-days       : 32
+W2 event-days        : 63
+Union hours (h/year) : 2,728.0
+
+=== NATIONAL ALLOCATION ===
+Target energy (TWh)                 : 4.000
+Energy check from curve (TWh)       : 4.000000
+Peak absorb_need_mw (MW)            : 3,817.2
+
+=== REGION ALLOCATION ===
+sC = region share inside union_hours: 20.22%
+Region energy implied (TWh)         : 0.808789
+Energy check from curve (TWh)       : 0.808789
+Unallocated due to caps (TWh)       : 0.000000
+Peak absorb_need_mw_region (MW)     : 1,958.5

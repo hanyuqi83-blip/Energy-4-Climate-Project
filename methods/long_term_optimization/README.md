@@ -416,7 +416,7 @@ The full objective is:
 
 $$
 
-max Z^{LT}
+\max Z^{LT}
 =
 \sum_t \pi_t^{H_2} h_t^{sell}
 -\sum_t \pi_t^e P^{keep}\Delta t

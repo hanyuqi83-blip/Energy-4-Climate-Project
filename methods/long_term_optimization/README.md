@@ -401,6 +401,7 @@ $$
 $$
 
 ### 12.2 Costs
+
 The objective subtracts:
 
 - keep-alive electricity cost,
@@ -441,14 +442,15 @@ $$
 \alpha^{opex} = 0.05
 $$
 
-### 12.3  Annualization
+### 12.3 Annualization
+
 Annualized CAPEX is computed with the standard annuity factor:
 
 $$
 AF(r,n) = \frac{r(1+r)^n}{(1+r)^n - 1}
 $$
 
-This is applied separately to:
+This annuity factor is applied separately to:
 
 - electrolyzer lifetime,
 - BESS lifetime,

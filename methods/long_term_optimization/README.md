@@ -441,7 +441,7 @@ $$
 \alpha^{opex} = 0.05
 $$
 
-### 12.3 Annualization
+### 12.3  Annualization
 Annualized CAPEX is computed with the standard annuity factor:
 
 $$
